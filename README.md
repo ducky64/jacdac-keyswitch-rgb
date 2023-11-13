@@ -1,3 +1,15 @@
+# Device-specific notes
+
+### Flashing
+```
+openocd -f interface/cmsis-dap.cfg -f target/stm32g0x.cfg -c init -c halt -c "flash erase_sector 0 0 last" -c "flash write_image combined-module.hex" -c "reset run" -c exit
+```
+
+### Recovering from SWD inoperative
+```
+openocd -f interface/cmsis-dap.cfg -f target/stm32g0x.cfg -c "reset_config srst_only srst_nogate connect_assert_srst" -c init -c "reset halt" -c "flash list" -c "stm32g0x mass_erase 0" -c exit
+```
+
 # Template for Jacdac module firmware
 
 This repository is a template to create a new module firmware for [Jacdac](https://aka.ms/jacdac).
